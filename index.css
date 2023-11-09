@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+
 html, body {
+    font-family: 'Gowun Dodum', sans-serif;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -24,6 +28,10 @@ html, body {
     padding-bottom: 2px;
 }
 
+#main > div {
+    transition: all .2s linear;
+}
+
 #send {
     display: flex;
     background-color: #f2f2f2;
@@ -44,6 +52,16 @@ html, body {
     background-color: #fdfdfd;
     padding-left: 15px;
     font-size: 15px;
+    transition: all .2s linear;
+    color: black;
+}
+
+#typer:disabled {
+    background-color: #bd8aff;
+}
+
+#typer:disabled::placeholder {
+    color: white;
 }
 
 #sendBtn {
