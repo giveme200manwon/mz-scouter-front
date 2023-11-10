@@ -25,10 +25,10 @@ function result(data) {
         }))
         //Rscore += Number(chatting.score));
     Rscore /= totalNum
-    if (Rscore > 75) {
+    if (Rscore > 65) {
         MZillust.src = "./PowerMZ.png";
         namer.innerText = "슈퍼파워 MZ!";
-    } else if (Rscore > 50) {
+    } else if (Rscore > 47) {
         MZillust.src = "./WeakMZ.png";
         namer.innerText = "흔하지는 않은 MZ 회사원!"
     } else if (Rscore > 25) {
