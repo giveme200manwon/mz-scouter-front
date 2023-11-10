@@ -35,6 +35,7 @@ html, body {
     padding-top: 8px;
     padding-bottom: 8px;
     overflow: auto;
+    font-size: 15px;
 }
 
 #nein > button:active{
@@ -62,10 +63,14 @@ html, body {
     border-radius: 20px;
     background-color: #fdfdfd;
     padding-left: 15px;
-    font-size: 15px;
+    font-size: 2%;
     transition: all .2s linear;
     color: black;
     font-family: 'Gowun Dodum', sans-serif;
+}
+
+#typer::placeholder {
+    font-size: 15px;
 }
 
 #typer:disabled {
@@ -75,6 +80,7 @@ html, body {
 #typer:disabled::placeholder {
     font-family: 'Gowun Dodum', sans-serif;
     color: white;
+    font-size: 15px;
 }
 
 #sendBtn {
@@ -108,7 +114,7 @@ html, body {
 #nextBtn {
     position: absolute;
     display: flex;
-    width: calc(17.5% - 30px);
+    width: calc(17.5%);
     height: 40px;
     border-radius: 20px;
     color: white;
@@ -119,4 +125,5 @@ html, body {
     justify-content: center;
     margin-right: 30px;
     right:0;
+    font-size: 15px;
 }
