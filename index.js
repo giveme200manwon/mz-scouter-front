@@ -8,6 +8,36 @@ let chatBotByeCount = 0;
 let tempID = 0;
 let isEntered = false;
 
+const rawChattings = [];
+const SERVER_URL = "http://0.0.0.0:8888";
+
+async function uploadChatting() {
+    const body = {
+        request_id:
+            new Date().getTime().toString() + (Math.random() * 100).toFixed(),
+
+        chatting: rawChattings.map((rawChatting, idx) => {
+            return {
+                idx,
+                texts: rawChatting,
+            };
+        }),
+    };
+
+    try {
+        const result = await fetch(SERVER_URL, {
+            method: "POST",
+            body,
+        });
+        if (result.ok) {
+            return await result.json();
+        }
+    } catch {
+        return -1;
+    }
+}
+
+
 const chatBotQuestion = [["아주 멋진 웃음인데? 이제 본격적으로 시작해볼까? 채팅을 다 했다면 지금처럼 다음 버튼을 누르면 다음 질문으로 넘어갈거야! 그럼 바로 첫 번째 질문!"], 
                         ["10년지기 친한 친구들끼리 여행을 간 상황! 그런데 숙소를 예약하기로 했던 친구가 예약을 잘못 했던걸 방금 알아 많이 실망한 것 같아. 이 친구를 위로하려면 어떻게 할래?",
                         "여러분...",
@@ -46,26 +76,28 @@ const chatBotSayBye = ["등록 완료! 모든 질문이 끝났어!", "곧 분석
 function chat() {
     if (input.value != "") {
         isEntered = true;
-    display.innerHTML += `<div style = "display: flex; 
-                                        width: fit-content;
-                                        max-width: 69%;
-                                        background: linear-gradient(-120deg,#483d8b, #bd8aff);
-                                        padding-left: 12px;
-                                        padding-right: 13.5px; 
-                                        padding-top: 5px;
-                                        padding-bottom: 6px;
-                                        border-radius: 17.5px; 
-                                        color: white; 
-                                        margin-left: auto;
-                                        margin-right: 10px;
-                                        margin-bottom: 8px;
-                                        font-size: 22px;
-                                        word-break: break-all;" class="chatter">
-                                        ${input.value}
-                                        </div>`;
-    input.value = "";
-    scroller();
-}
+        display.innerHTML += `<div style = "display: flex; 
+                                            width: fit-content;
+                                            max-width: 69%;
+                                            background: linear-gradient(-120deg,#483d8b, #bd8aff);
+                                            padding-left: 12px;
+                                            padding-right: 13.5px; 
+                                            padding-top: 5px;
+                                            padding-bottom: 6px;
+                                            border-radius: 17.5px; 
+                                            color: white; 
+                                            margin-left: auto;
+                                            margin-right: 10px;
+                                            margin-bottom: 8px;
+                                            font-size: 22px;
+                                            word-break: break-all;" class="chatter">
+                                            ${input.value}
+                                            </div>`;
+        let value = input.value;
+        input.value = "";
+        rawChattings.at(-1).push(value);
+        scroller();
+    }
 }
 
 function chatBotFirstTalk() {
@@ -147,7 +179,7 @@ function NextQ() {
                                         등록 완료! 그럼 다음 질문으로 넘어갈게!
                                         </div>`;
     scroller();
-    
+    rawChattings.push([]);
     setTimeout(chatBotNextTalk, 2000);
 }
 
@@ -250,6 +282,7 @@ function chatBotEnd() {
     }
     chatBotByeCount += 1;
     scroller();
+    uploadChatting(rawChattings);
     setTimeout(chatBotEnd, 2000);
 }
 
@@ -259,7 +292,84 @@ function scroller() {
     setTimeout(() => display.scrollTop = display.scrollHeight, 10);
 }
 
+function goToResultPage(data) {
+    // 여기에 작성
+    // 예시
+
+    data.rawChatting.forEach((chatting) => {
+        console.log(chatting.content);
+    });
+}
+
 setTimeout(chatBotFirstTalk, 1000);
 setTimeout(chatBotFirstTalk, 2000);
 setTimeout(chatBotFirstTalk, 4000);
 setTimeout(chatBotFirstTalk, 6000);
+
+const data = {
+	test_id: "1",
+	rawChatting: [
+		{
+			idx: "0",
+			contents: [
+				{
+					texts: "adadSAD",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Adsdsada",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Asdadsadas",
+					score: 1,
+					feedback: ""
+				}
+			]
+		},
+		{
+			"idx": "1",
+			"contents": [
+				{
+					texts: "adadSAD",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Adsdsada",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Asdadsadas",
+					score: 1,
+					feedback: ""
+				}
+			]
+		},
+		{
+			"idx": "2",
+			"contents": [
+				{
+					texts: "adadSAD",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Adsdsada",
+					score: 1,
+					feedback: ""
+				},
+				{
+					texts: "Asdadsadas",
+					score: 1,
+					feedback: ""
+				}
+			]
+		}
+	]
+};
+
+goToResultPage(data);
