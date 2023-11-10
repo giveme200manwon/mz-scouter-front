@@ -10,21 +10,25 @@ let feedBackCount = 0;
 
 function result(data) {
     var Rscore = 0;
+    var totalNum = 0;
 
-    data.rawChatting.forEach((chatting) =>
-        chatting.contents.forEach((indexes) => 
-            Rscore += indexes.score))
+    data.chatting.forEach((chatting) =>
+        chatting.contents.forEach((indexes) => {
+            Rscore += indexes.score;
+            totalNum += 1;
+        }))
         //Rscore += Number(chatting.score));
+    Rscore /= totalNum
     if (Rscore > 8) {
         MZillust.src = "./PowerMZ.png";
         namer.innerText = "슈퍼파워 MZ!";
     }
-    scoreText.innerText = `당신의 MZ 점수는 ${Rscore}점 이네요!`;
+    scoreText.innerText = `당신의 MZ 점수는 ${Math.round(Rscore)}점 이네요!`;
     giveFeedBack(data);
 }
 
 function giveFeedBack(data) {
-    data.rawChatting.forEach((chatting) =>
+    data.chatting.forEach((chatting) =>
         chatting.contents.forEach((indexes) => 
             feedBackStrings.push(indexes.texts)));
     for (i = 0; i < feedBackStrings.length; i++) {
