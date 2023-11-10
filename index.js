@@ -326,9 +326,9 @@ function goToResultPage(data) {
     location.href = "./result.html";
 }
 
-chatBotEnd();
+// chatBotEnd();
 
-// setTimeout(chatBotFirstTalk, 1000);
-// setTimeout(chatBotFirstTalk, 2000);
-// setTimeout(chatBotFirstTalk, 4000);
-// setTimeout(chatBotFirstTalk, 6000);
+setTimeout(chatBotFirstTalk, 1000);
+setTimeout(chatBotFirstTalk, 2000);
+setTimeout(chatBotFirstTalk, 4000);
+setTimeout(chatBotFirstTalk, 6000);
