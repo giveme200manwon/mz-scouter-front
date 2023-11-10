@@ -8,7 +8,7 @@ let chatBotByeCount = 0;
 let tempID = 0;
 let isEntered = false;
 
-const rawChattings = [];
+const rawChattings = [[]];
 const SERVER_URL = "http://0.0.0.0:8888";
 
 async function uploadChatting() {
@@ -260,7 +260,7 @@ function chatBotNextTalk() {
 
 function chatBotEnd() {
     if (chatBotByeCount == 3) {
-        return 0;
+        setTimeout(() => goToResultPage(data), 2000);
     } else {
         display.innerHTML += `<div style = "display: flex; 
                                             width: fit-content;
@@ -293,12 +293,8 @@ function scroller() {
 }
 
 function goToResultPage(data) {
-    // 여기에 작성
-    // 예시
-
-    data.rawChatting.forEach((chatting) => {
-        console.log(chatting.content);
-    });
+    localStorage.setItem("totalScore", JSON.stringify(data));
+    location.href = "./result.html";
 }
 
 setTimeout(chatBotFirstTalk, 1000);
@@ -330,8 +326,8 @@ const data = {
 			]
 		},
 		{
-			"idx": "1",
-			"contents": [
+			idx: "1",
+			contents: [
 				{
 					texts: "adadSAD",
 					score: 1,
@@ -350,8 +346,8 @@ const data = {
 			]
 		},
 		{
-			"idx": "2",
-			"contents": [
+			idx: "2",
+			contents: [
 				{
 					texts: "adadSAD",
 					score: 1,
@@ -371,5 +367,3 @@ const data = {
 		}
 	]
 };
-
-goToResultPage(data);

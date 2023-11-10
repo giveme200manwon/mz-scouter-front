@@ -59,6 +59,19 @@ body {
     margin-bottom: -20px;
 }
 
+#name {
+    font-size: 35px;
+    width: 100%;
+    opacity: 0;
+    width: 500px;
+    animation-name: fadeFloat;
+    animation-duration: 0.25s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    margin-top: -10px; 
+}
+
 #scoreText {
     font-size: 25px;
     width: 100%;
@@ -83,7 +96,7 @@ body {
 
 #addOn > div {
     width: 100%;
-    height: 60px;
+    height: auto;
     color: white;
     font-size: 20px;
     background-color: darkslateblue;
@@ -94,4 +107,5 @@ body {
     animation-delay: 1.25s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-in-out;
+    padding-left: 5px;
 }
