@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
 
+
 html, body {
     font-family: 'Gowun Dodum', sans-serif;
     width: 100%;
@@ -18,6 +19,11 @@ html, body {
     background-color: #f2f2f2;
     border-bottom: 1px solid #c2c2c2;
     z-index: 10;
+}
+
+#head > img {
+    width: 200px;
+    height: auto;
 }
 
 #nein {
@@ -106,7 +112,7 @@ html, body {
     height: 40px;
     border-radius: 20px;
     color: white;
-    background: linear-gradient(-120deg,#483d8b, #bd8aff);
+    background: linear-gradient(-120deg,#483d8b, #61329c);
     text-align: center;
     color: white;
     align-items: center;
