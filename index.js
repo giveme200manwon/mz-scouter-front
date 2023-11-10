@@ -5,17 +5,21 @@ const input = document.getElementById("typer");
 let chatBotCount = 0;
 let chatBotHiCount = 0;
 let chatBotByeCount = 0;
+let didUploadChatting = false;
 let tempID = 0;
 let isEntered = false;
 
 const rawChattings = [[]];
-const SERVER_URL = "http://0.0.0.0:8888";
+const SERVER_URL = "https://apiserver-jfcxp.run.goorm.site";
+let test_id = '';
 
 async function uploadChatting() {
+    if (didUploadChatting) return;
+    didUploadChatting = true;
+    
+    test_id = new Date().getTime().toString() + (Math.random() * 100).toFixed();
     const body = {
-        request_id:
-            new Date().getTime().toString() + (Math.random() * 100).toFixed(),
-
+        test_id,
         chatting: rawChattings.map((rawChatting, idx) => {
             return {
                 idx,
@@ -25,9 +29,19 @@ async function uploadChatting() {
     };
 
     try {
+        console.log(body);
         const result = await fetch(SERVER_URL, {
-            method: "POST",
-            body,
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(body), // body data type must match "Content-Type" header
         });
         if (result.ok) {
             return await result.json();
@@ -36,7 +50,6 @@ async function uploadChatting() {
         return -1;
     }
 }
-
 
 const chatBotQuestion = [["아주 멋진 웃음인데? 이제 본격적으로 시작해볼까? 채팅을 다 했다면 지금처럼 다음 버튼을 누르면 다음 질문으로 넘어갈거야! 그럼 바로 첫 번째 질문!"], 
                         ["10년지기 친한 친구들끼리 여행을 간 상황! 그런데 숙소를 예약하기로 했던 친구가 예약을 잘못 했던걸 방금 알아 많이 실망한 것 같아. 이 친구를 위로하려면 어떻게 할래?",
@@ -260,7 +273,23 @@ function chatBotNextTalk() {
 
 function chatBotEnd() {
     if (chatBotByeCount == 3) {
-        setTimeout(() => goToResultPage(data), 2000);
+        setTimeout(async () => {
+            const uploadResult = await uploadChatting();
+            if (uploadResult == -1) {
+                alert('서버 업로드 실패...');
+            }
+
+            let mzPowerResult = {};
+            let interval = setInterval(async() => {
+                const res = await fetch(`${SERVER_URL}?test_id=${test_id}`, {method: 'GET'});
+                mzPowerResult = await res.json();
+                if (mzPowerResult.msg != 'No such test id') {
+                    console.log(mzPowerResult);
+                    clearInterval(interval);
+                    goToResultPage(mzPowerResult);
+                }
+            }, 1000);
+        }, 2000);
     } else {
         display.innerHTML += `<div style = "display: flex; 
                                             width: fit-content;
@@ -278,12 +307,12 @@ function chatBotEnd() {
                                             font-size: 22px;
                                             word-break: break-all;" class="chatter">
                                             ${chatBotSayBye[chatBotByeCount]}
-                                            </div>`
+                                            </div>`;
+        chatBotByeCount += 1;
+        scroller();
+        uploadChatting(rawChattings);
+        setTimeout(chatBotEnd, 2000);
     }
-    chatBotByeCount += 1;
-    scroller();
-    uploadChatting(rawChattings);
-    setTimeout(chatBotEnd, 2000);
 }
 
 function scroller() {
@@ -297,73 +326,9 @@ function goToResultPage(data) {
     location.href = "./result.html";
 }
 
-setTimeout(chatBotFirstTalk, 1000);
-setTimeout(chatBotFirstTalk, 2000);
-setTimeout(chatBotFirstTalk, 4000);
-setTimeout(chatBotFirstTalk, 6000);
+chatBotEnd();
 
-const data = {
-	test_id: "1",
-	rawChatting: [
-		{
-			idx: "0",
-			contents: [
-				{
-					texts: "adadSAD",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Adsdsada",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Asdadsadas",
-					score: 1,
-					feedback: ""
-				}
-			]
-		},
-		{
-			idx: "1",
-			contents: [
-				{
-					texts: "adadSAD",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Adsdsada",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Asdadsadas",
-					score: 1,
-					feedback: ""
-				}
-			]
-		},
-		{
-			idx: "2",
-			contents: [
-				{
-					texts: "adadSAD",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Adsdsada",
-					score: 1,
-					feedback: ""
-				},
-				{
-					texts: "Asdadsadas",
-					score: 1,
-					feedback: ""
-				}
-			]
-		}
-	]
-};
+// setTimeout(chatBotFirstTalk, 1000);
+// setTimeout(chatBotFirstTalk, 2000);
+// setTimeout(chatBotFirstTalk, 4000);
+// setTimeout(chatBotFirstTalk, 6000);
