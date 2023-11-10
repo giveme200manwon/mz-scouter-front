@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap');
+
+@keyframes LoadingBar {
+    0% {
+        margin-left: -200%;
+    }
+    10% {
+        margin-left: -190%;
+    }
+    12% {
+        margin-left: -160%;
+    }
+    50% {
+        margin-left: -100%;
+    }
+    60% {
+        margin-left: -63%;
+    }
+    95% {
+        margin-left: -25%;
+    }
+    98% {
+        margin-left: -12%;
+    }
+    100% {
+        margin-left: 0;
+    }
+}
+
+@keyframes imageBoom {
+    0% {
+        width: 0px;
+    }
+    50% {
+        margin-top: 0%;
+        width: 820px;
+    }
+    100% {
+        width: 720px;
+    }
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("./test.png");
+    background-repeat: repeat-x;
+    font-family: 'Gasoek One', sans-serif;
+}
+
+#loading {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
+
+#loading > p {
+    font-size: 20px;
+}
+
+#bar {
+    margin-left: 200%;
+    background: linear-gradient(90deg,goldenrod, darkslateblue);
+    width: 100%;
+    height: 5px;
+    animation-name: LoadingBar;
+    animation-fill-mode: forwards;
+    animation-duration: 5s;
+    bottom: 0;
+    margin-bottom: 0;
+}
+
+#mainLogo {
+    position: absolute;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#mainLogo > img {
+    position: fixed;
+    width: 720px;
+    animation-name: imageBoom;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+#ryuk {
+    font-size: 50px;
+    margin-left: -135px;
+}
