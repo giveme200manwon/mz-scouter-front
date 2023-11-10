@@ -254,8 +254,9 @@ function chatBotEnd() {
 }
 
 function scroller() {
-    var location = document.querySelectorAll('.chatter')[0]
-    display.scrollTop = display.scrollHeight;
+    // console.log(display.scrollHeight);
+    // display.scrollTop = display.scrollHeight;
+    setTimeout(() => display.scrollTop = display.scrollHeight, 10);
 }
 
 setTimeout(chatBotFirstTalk, 1000);
