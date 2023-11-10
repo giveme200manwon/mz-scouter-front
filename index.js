@@ -5,6 +5,7 @@ const input = document.getElementById("typer");
 let chatBotCount = 0;
 let chatBotHiCount = 0;
 let chatBotByeCount = 0;
+let didUploadChatting = false;
 let tempID = 0;
 let isEntered = false;
 
@@ -13,6 +14,9 @@ const SERVER_URL = "https://apiserver-jfcxp.run.goorm.site";
 let test_id = '';
 
 async function uploadChatting() {
+    if (didUploadChatting) return;
+    didUploadChatting = true;
+    
     test_id = new Date().getTime().toString() + (Math.random() * 100).toFixed();
     const body = {
         test_id,
@@ -322,7 +326,9 @@ function goToResultPage(data) {
     location.href = "./result.html";
 }
 
-setTimeout(chatBotFirstTalk, 1000);
-setTimeout(chatBotFirstTalk, 2000);
-setTimeout(chatBotFirstTalk, 4000);
-setTimeout(chatBotFirstTalk, 6000);
+chatBotEnd();
+
+// setTimeout(chatBotFirstTalk, 1000);
+// setTimeout(chatBotFirstTalk, 2000);
+// setTimeout(chatBotFirstTalk, 4000);
+// setTimeout(chatBotFirstTalk, 6000);
