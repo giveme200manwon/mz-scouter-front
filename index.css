@@ -33,6 +33,7 @@ html, body {
     background-color: #f7f7f7;
     height: calc(100vh - 180px);
     margin-top: 93px;
+    margin-bottom: 71px
     padding-top: 16px;
     padding-bottom: 0px;
     overflow: auto;
