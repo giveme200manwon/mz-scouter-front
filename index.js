@@ -6,6 +6,7 @@ let chatBotCount = 0;
 let chatBotHiCount = 0;
 let chatBotByeCount = 0;
 let tempID = 0;
+let isEntered = false;
 
 const chatBotQuestion = [["아주 멋진 웃음인데? 이제 본격적으로 시작해볼까? 채팅을 다 했다면 지금처럼 다음 버튼을 누르면 다음 질문으로 넘어갈거야! 그럼 바로 첫 번째 질문!"], 
                         ["10년지기 친한 친구들끼리 여행을 간 상황! 그런데 숙소를 예약하기로 했던 친구가 예약을 잘못 했던걸 방금 알아 많이 실망한 것 같아. 이 친구를 위로하려면 어떻게 할래?",
@@ -44,6 +45,7 @@ const chatBotSayBye = ["등록 완료! 모든 질문이 끝났어!", "곧 분석
 
 function chat() {
     if (input.value != "") {
+        isEntered = true;
     display.innerHTML += `<div style = "display: flex; 
                                         width: fit-content;
                                         max-width: 69%;
@@ -88,7 +90,9 @@ function chatBotFirstTalk() {
 }
 
 function deunLock() {
-    input.placeholder = "챗 봇이 입력 중...";
+    if (isEntered) {
+        isEntered = false;
+        input.placeholder = "챗 봇이 입력 중...";
     input.disabled = true;
     if (chatBotCount != 0) {
         display.innerHTML += `<div style = "display: flex; 
@@ -118,6 +122,10 @@ function deunLock() {
         chatBotNextTalk();
     }
     scroller();
+    } else {
+        input.placeholder = "읽씹은 안돼...";
+        setTimeout(() => input.placeholder = "여기에 할 말을 적어봐!", 1000);
+    }
 }
 
 function NextQ() {
